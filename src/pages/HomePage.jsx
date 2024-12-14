@@ -4,6 +4,7 @@ import instagram from "../assets/instagram.png";
 import videoConverter from "../assets/videoConverter.png"
 import aiImage from "../assets/aiImage.png"
 import removeBg from "../assets/removeBG.png"
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -16,7 +17,7 @@ const HomePage = () => {
         <div className="flex flex-col w-full items-center gap-y-[15px]">
             <div className="text-4xl font-bold underline underline-offset-4">Services</div>
             <div className="w-[80%] flex justify-end">
-                <button className="bg-[#0a1743] text-whiter px-[15px] py-[7px] text-white rounded">More {'>>'}</button>
+                <Link className="bg-[#0a1743] text-whiter px-[15px] py-[7px] text-white rounded" to="/allServices">More {'>>'}</Link>
             </div>
             <div className="w-full flex justify-center gap-[30px]">
                 <div className="flex flex-col w-[300px] border border-[#0a1743] gap-y-[15px] pb-[10px]">
