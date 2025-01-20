@@ -1,0 +1,35 @@
+[
+  {
+    "id": "socialMedia",
+    "types": [
+      {
+        "name": "Instagram Video Download",
+        "obj": [
+          {
+            "key": 1,
+            "svg": "/image/inflact.svg",
+            "tutorialLink": "",
+            "redirectLink": ""
+          },
+          {
+            "key": 2,
+            "svg": "/image/snapInsta.svg",
+            "tutorialLink": "",
+            "redirectLink": ""
+          }
+        ]
+      },
+      {
+        "name": "Instagram Audio Download",
+        "obj": [
+          {
+            "key": 3,
+            "svg": "/image/reelSaveApp.png",
+            "tutorialLink": "",
+            "redirectLink": ""
+          }
+        ]
+      }
+    ]
+  }
+]
