@@ -12,7 +12,7 @@ const Header = () => {
         {
             key:2,
             label: 'All Services',
-            link:'/'
+            link:'/allServices'
         },
         {
             key:3,
@@ -25,7 +25,7 @@ const Header = () => {
         <img src={logo} className='w-[200px] object-cover '/>
         <div className="flex items-center gap-x-[5px]">
             {navlinks.map((v,i)=>
-                <Link className="p-[5px] font-bold text-color text-xl italic" key={i}>{v.label}</Link>
+                <Link className="p-[5px] font-bold text-color text-xl italic text-black hover:text-red-600 hover:underline" key={i} to={v.link}>{v.label}</Link>
             )}
         </div>
     </div>

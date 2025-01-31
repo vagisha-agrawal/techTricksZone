@@ -19,7 +19,7 @@ const HomePage = () => {
             <div className="w-[80%] flex justify-end">
                 <Link className="bg-[#0a1743] text-whiter px-[15px] py-[7px] text-white rounded" to="/allServices">More {'>>'}</Link>
             </div>
-            <div className="w-full flex justify-center gap-[30px]">
+            <div className="w-[80%] flex justify-center gap-[30px] flex-wrap">
                 <div className="flex flex-col w-[300px] border border-[#0a1743] gap-y-[15px] pb-[10px]">
                     <img src={instagram} className='w-full' />
                     <div className="h-[60px] font-semibold text-xl text-center px-[5px]">Social Media video and audio download service</div>
