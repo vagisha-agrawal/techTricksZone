@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addCollections } from "../services/collections";
 
-const AddCollection = ({setModalOpen}) => {
+const AddCollection = ({setModalOpen, idObj = undefined}) => {
   const [input, setInput] = useState({});
   const [imageFile, setImageFile] = useState("");
   const [filename, setFileName] = useState("");
@@ -12,6 +12,12 @@ const AddCollection = ({setModalOpen}) => {
     obj[name] = value;
     setInput(obj);
   };
+
+  useEffect(()=>{
+    if(Object.keys(idObj).length){
+      setInput(idObj)
+    }
+  },[idObj])
 
   function handleOnChange(e) {
     const { target } = e;
@@ -39,7 +45,7 @@ const AddCollection = ({setModalOpen}) => {
         .then((res)=>{
             console.log("response:- ", res);
             if(res.status === 200 && res.data){
-                setModalOpen("")
+                setModalOpen()
             }
         })
     }

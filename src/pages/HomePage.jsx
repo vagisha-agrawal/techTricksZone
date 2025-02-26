@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import header from '../assets/header.jpeg';
 import instagram from "../assets/instagram.png";
 import videoConverter from "../assets/videoConverter.png"
 import aiImage from "../assets/aiImage.png"
 import removeBg from "../assets/removeBG.png"
 import { Link } from 'react-router-dom';
+import { getCollections } from '../services/collections';
 
 const HomePage = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(()=>{
+        getCollections()
+        .then((res) => {
+            console.log(res);
+            if (res.status === 200 && res.data) {
+                setData(res.data.data);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    },[])
   return (
     <div className="flex flex-col w-full gap-y-[30px] bg-white py-[10px]">
         <div className="flex justify-around w-full items-center">
@@ -20,26 +35,14 @@ const HomePage = () => {
                 <Link className="bg-[#0a1743] text-whiter px-[15px] py-[7px] text-white rounded" to="/allServices">More {'>>'}</Link>
             </div>
             <div className="w-[80%] flex justify-center gap-[30px] flex-wrap">
-                <div className="flex flex-col w-[300px] border border-[#0a1743] gap-y-[15px] pb-[10px]">
-                    <img src={instagram} className='w-full' />
-                    <div className="h-[60px] font-semibold text-xl text-center px-[5px]">Social Media video and audio download service</div>
-                    <div className="flex w-full justify-center"><button className='w-auto bg-[#0a1743] text-white px-[10px] py-[5px] rounded'>View</button></div>
-                </div>
-                <div className="flex flex-col w-[300px] border border-[#0a1743] gap-y-[15px] pb-[10px]">
-                    <img src={videoConverter} className='w-full' />
-                    <div className="h-[60px] font-semibold text-xl text-center px-[5px]">Convert Local Video to Audio Online</div>
-                    <div className="flex w-full justify-center"><button className='w-auto bg-[#0a1743] text-white px-[10px] py-[5px] rounded'>View</button></div>
-                </div>
-                <div className="flex flex-col w-[300px] border border-[#0a1743] gap-y-[15px] pb-[10px]">
-                    <img src={aiImage} className='w-full' />
-                    <div className="h-[60px] font-semibold text-xl text-center px-[5px]">Generate Image from AI</div>
-                    <div className="flex w-full justify-center"><button className='w-auto bg-[#0a1743] text-white px-[10px] py-[5px] rounded'>View</button></div>
-                </div>
-                <div className="flex flex-col w-[300px] border border-[#0a1743] gap-y-[15px] pb-[10px]">
-                    <img src={removeBg} className='w-full' />
-                    <div className="h-[60px] font-semibold text-xl text-center px-[5px]">Remove background from image for free</div>
-                    <div className="flex w-full justify-center"><button className='w-auto bg-[#0a1743] text-white px-[10px] py-[5px] rounded'>View</button></div>
-                </div>
+                {data.length ? data.map((v,i)=>
+                    <div className="flex flex-col w-[300px] border border-[#0a1743] gap-y-[15px] pb-[10px]" key={i}>
+                        <img src={v.collectionPhoto} className='w-full h-[150px] object-cover' />
+                        <div className="font-semibold text-xl text-center px-[5px]">{v.collectionName}</div>
+                        <div className="flex w-full justify-center"><Link className='w-auto bg-[#0a1743] text-white px-[10px] py-[5px] rounded' to={`/allServices/${v.collectionName.toLowerCase()}`}>View</Link></div>
+                    </div>
+                ) : <></>}
+                                 
             </div>
         </div>
     </div>

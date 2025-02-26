@@ -3,11 +3,14 @@ import { getServices } from "../services/services";
 import AddServices from "./AddServices";
 import Icons from "../components/Icons";
 import { getCollections } from "../services/collections";
+import { navigateState } from "../state/AppAtom";
+import { useRecoilState } from "recoil";
 
 const AdminServices = () => {
   const [data, setData] = useState([]);
   const [option, setOption] = useState([]);
   const [openModal, setModalOpen] = useState("");
+  const [nav, setNav] = useRecoilState(navigateState)
 
   useEffect(() => {
     getCollections()
@@ -20,6 +23,7 @@ const AdminServices = () => {
       .catch((err) => {
         console.log(err);
       });
+      setNav("service")
   }, []);
 
   useEffect(() => {
