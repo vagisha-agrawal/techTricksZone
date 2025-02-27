@@ -24,3 +24,21 @@ export const addCollections = async (payload) =>{
         return err
     }
 }
+
+export const updateCollections = async (id,payload) =>{
+    try {
+        const response = instance.put(`/update-collection/${id}`, payload);
+        return response
+    } catch (err) {
+        return err
+    }
+}
+
+export const deleteCollections = async (id) =>{
+    try {
+        const response = instance.delete(`/delete-collection/${id}`);
+        return response
+    } catch (err) {
+        return err
+    }
+}

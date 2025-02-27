@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { addCollections } from "../services/collections";
+import { useRecoilState } from "recoil";
+import { toastState } from "../state/AppAtom";
 
 const AddCollection = ({setModalOpen, idObj = undefined}) => {
   const [input, setInput] = useState({});
   const [imageFile, setImageFile] = useState("");
   const [filename, setFileName] = useState("");
   const [file, setFile] = useState(null);
+  const [showToast, setShowToast] = useRecoilState(toastState);
 
   const inputChange = ({ name, value }) => {
     let obj = { ...input };
@@ -41,13 +44,25 @@ const AddCollection = ({setModalOpen, idObj = undefined}) => {
 
   const submit = () => {
     if(input.collectionName && input.collectionPhoto){
+      if(Object.keys(idObj).length){
+        updateCollections(idObj._id, input)
+        .then((res)=>{
+          if(res.status === 200 && res.data){
+            setShowToast({type:'success', message: res.data.message})
+            setModalOpen()
+          }
+        })
+        .catch((err)=>console.error(err))
+      } else {
         addCollections({collectionName:input.collectionName, collectionPhoto: input.collectionPhoto})
         .then((res)=>{
             console.log("response:- ", res);
             if(res.status === 200 && res.data){
-                setModalOpen()
+              setShowToast({type:'success', message: res.data.message})
+              setModalOpen()
             }
-        })
+        }).catch((err)=>console.error(err))
+      }
     }
   }
   return (

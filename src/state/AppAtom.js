@@ -5,4 +5,9 @@ const navigateState = atom({
     default: "",
 });
 
-export {navigateState}
+const toastState = atom({
+  key:'toastState',
+  default:{}
+})
+
+export {navigateState, toastState}

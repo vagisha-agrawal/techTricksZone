@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Icons from "../components/Icons";
 import AddCollection from "./AddCollection";
-import { getCollections } from "../services/collections";
+import { deleteCollections, getCollections } from "../services/collections";
 import { useRecoilState } from "recoil";
-import { navigateState } from "../state/AppAtom";
+import { navigateState, toastState } from "../state/AppAtom";
 import { Link } from "react-router-dom";
 
 const Collections = () => {
   const [data, setData] = useState([]);
   const [openModal, setModalOpen] = useState("");
   const [nav, setNav] = useRecoilState(navigateState);
-  const [idObj, setIdObj] = useState({})
+  const [idObj, setIdObj] = useState({});
+  const [showToast, setShowToast] = useRecoilState(toastState);
 
   useEffect(() => {
     getCollections()
@@ -46,6 +47,19 @@ const Collections = () => {
       });
   }
 
+  const deleteC = id =>{
+    deleteCollections(id)
+    .then((res)=>{
+      if(res.data && res.status === 200){
+        setShowToast({type:'success', message: res.data.message})
+        setModalClose()
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   return (
     <div className="flex w-full items-center justify-center py-[20px] relative">
       <div className="w-[80%] flex flex-col items-center">
@@ -75,7 +89,7 @@ const Collections = () => {
                 </div>
                 <div className="flex w-full justify-center gap-2">
                   <button className="bg-green-600 py-1 px-2 rounded text-white" onClick={()=>editCollection(v)}>Edit</button>
-                  <button className="bg-red-600 py-1 px-2 rounded text-white">Delete</button>
+                  <button className="bg-red-600 py-1 px-2 rounded text-white" onClick={()=>deleteC(v._id)}>Delete</button>
                 </div>
                 {/* <div className="flex w-full justify-center"><div className='w-auto bg-[#0a1743] text-white px-[10px] py-[5px] rounded'>View</div></div> */}
               </div>
